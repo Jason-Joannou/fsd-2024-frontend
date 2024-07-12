@@ -11,7 +11,9 @@
     "axios": "^1.7.2",
     "core-js": "^3.8.3",
     "element-plus": "^2.7.7",
+    "plotly.js-dist": "^2.33.0",
     "vue": "^3.2.13",
+    "vue-plotly": "^1.1.0",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
