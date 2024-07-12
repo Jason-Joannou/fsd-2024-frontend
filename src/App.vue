@@ -1,18 +1,13 @@
 <!-- src/App.vue -->
 <template>
-  <div id="app">
-    <FinancialDashboard />
-  </div>
+  <el-container style="height: 100vh;">
+    <router-view />
+  </el-container>
 </template>
 
 <script>
-import FinancialDashboard from './components/FinancialDashboard.vue'
-
 export default {
   name: 'App',
-  components: {
-    FinancialDashboard
-  }
 }
 </script>
 
