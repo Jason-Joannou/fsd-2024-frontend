@@ -1,9 +1,6 @@
 <!-- src/components/LandingPage.vue -->
 <template>
     <el-container>
-      <el-header>
-        <Navbar />
-      </el-header>
       <el-main>
         <el-row type="flex" justify="center" align="middle" class="landing-row">
           <el-col :span="12">
