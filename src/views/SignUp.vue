@@ -13,8 +13,8 @@
                 <el-form-item label="Email">
                   <el-input v-model="form.email"></el-input>
                 </el-form-item>
-                <el-form-item label="Name">
-                  <el-input v-model="form.name"></el-input>
+                <el-form-item label="Username">
+                  <el-input v-model="form.username"></el-input>
                 </el-form-item>
                 <el-form-item label="Password">
                   <el-input type="password" v-model="form.password"></el-input>
@@ -38,16 +38,16 @@
       return {
         form: {
           email: '',
-          name: '',
+          username: '',
           password: '',
         },
       };
     },
     methods: {
       async onSubmit() {
-        if (this.form.email && this.form.name && this.form.password) {
+        if (this.form.email && this.form.username && this.form.password) {
           try {
-            const response = await this.$axios.post('/api/signup', this.form);
+            const response = await this.$axios.post('/register/', this.form);
             if (response.status === 200) {
               this.$router.push({ name: 'FinancialDashboard' });
             }
