@@ -1,14 +1,18 @@
-// main.js
 import { createApp } from 'vue';
 import App from './App.vue';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
-import locale from 'element-plus/es/locale/lang/en' // Update to the correct path
 import router from './router';
+import axios from 'axios';
 
 const app = createApp(App);
 
-app.use(ElementPlus, { locale });
-app.use(router);
+// Configure the base URL for Axios
+axios.defaults.baseURL = 'http://127.0.0.1:8080';
 
+// Make Axios available globally
+app.config.globalProperties.$axios = axios;
+
+app.use(ElementPlus);
+app.use(router);
 app.mount('#app');
