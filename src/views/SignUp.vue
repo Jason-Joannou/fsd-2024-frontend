@@ -22,6 +22,7 @@
                 <el-form-item>
                   <el-button type="primary" @click="onSubmit">Sign Up</el-button>
                 </el-form-item>
+                <el-alert v-if="errorMessage" type="error" :closable="false" title="Error" :description="errorMessage" />
               </el-form>
             </el-card>
           </el-col>
@@ -41,6 +42,7 @@
           username: '',
           password: '',
         },
+        errorMessage: '',
       };
     },
     methods: {
@@ -53,7 +55,12 @@
               this.$router.push({ name: 'FinancialDashboard' });
             }
           } catch (error) {
-            console.error('There was an error signing up:', error);
+            if (error.response && error.response.data) {
+            this.errorMessage = error.response.data.detail; // Show server error message
+          } else {
+            this.errorMessage =
+              'An unexpected error occurred. Please try again.' // Show a generic error message
+          }
           }
         } else {
           alert('Please fill in all fields.');
