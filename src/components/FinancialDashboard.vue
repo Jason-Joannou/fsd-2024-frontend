@@ -1,15 +1,32 @@
 <template>
+  <el-container>
+    <!-- Header -->
+    <el-header class="header">
+      <div class="navbar">
+        <span class="navbar-text">Welcome, {{ username }}!</span>
+        <div class="navbar-buttons">
+          <el-button type="danger" @click="onSignOut" class="signout-button">Sign Out</el-button>
+          <!-- Uncomment if needed -->
+          <!-- <el-button type="primary" @click="goToSettings" class="settings-button">Settings</el-button> -->
+        </div>
+      </div>
+    </el-header>
+
     <el-container>
-      <el-header>Financial Dashboard</el-header>
-      <el-main>
+      <!-- Aside -->
+      <el-aside width="200px" class="aside">
+        <el-menu default-active="1" class="el-menu-vertical-demo">
+          <el-menu-item index="1"><i class="el-icon-menu"></i>Dashboard</el-menu-item>
+          <el-menu-item index="2"><i class="el-icon-setting"></i>Settings</el-menu-item>
+        </el-menu>
+      </el-aside>
+
+      <!-- Main content -->
+      <el-main class="main-content">
         <el-card class="box-card">
-          <template v-slot:header>
-            <span>Welcome</span>
-          </template>
-          <div>
-            Welcome to your financial dashboard.
-          </div>
+          <div>Welcome to your financial dashboard.</div>
         </el-card>
+
         <el-card class="box-card" style="margin-top: 20px;">
           <template v-slot:header>
             <span>Chart</span>
@@ -22,33 +39,81 @@
         </el-card>
       </el-main>
     </el-container>
-  </template>
-  
-  <script>
-  export default {
-    name: 'FinancialDashboard',
-    data() {
-      return {
-        tableData: [{
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'New York No. 1 Lake Park'
-        }, {
-          date: '2016-05-04',
-          name: 'Tom',
-          address: 'New York No. 1 Lake Park'
-        }, {
-          date: '2016-05-01',
-          name: 'Tom',
-          address: 'New York No. 1 Lake Park'
-        }]
-      }
-    }
-  }
-  </script>
-  
-  <style scoped>
-  .box-card {
-    margin-bottom: 20px;
-  }
-  </style>
+
+    <!-- Footer -->
+    <el-footer class="footer">
+      &copy; 2023 My Financial Dashboard
+    </el-footer>
+  </el-container>
+</template>
+
+<script>
+export default {
+  name: 'FinancialDashboard',
+  data() {
+    return {
+      username: localStorage.getItem('username') || '', // Retrieve stored username
+      tableData: [
+        { date: '2016-05-02', name: 'Tom', address: 'New York No. 1 Lake Park' },
+        { date: '2016-05-04', name: 'Tom', address: 'New York No. 1 Lake Park' },
+        { date: '2016-05-01', name: 'Tom', address: 'New York No. 1 Lake Park' },
+      ],
+    };
+  },
+  methods: {
+    onSignOut() {
+      // Handle sign out logic here (e.g., clear authentication tokens, redirect to sign-in page)
+      localStorage.removeItem('username'); // Clear username from local storage
+      this.$router.push({ name: 'SignIn' });
+    },
+    // goToSettings() {
+    //   this.$router.push({ name: 'Settings' });
+    // },
+  },
+};
+</script>
+
+<style scoped>
+.header {
+  background-color: #324057; /* Change to suit your theme */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.navbar-text {
+  font-size: 18px;
+}
+
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.signout-button,
+.settings-button {
+  margin-left: 12px;
+}
+
+.aside {
+  background-color: #f0f2f5;
+}
+
+.main-content {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px 0;
+  background-color: #324057;
+  color: white;
+}
+
+.box-card {
+  margin-bottom: 20px;
+}
+</style>
