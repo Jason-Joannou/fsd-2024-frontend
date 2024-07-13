@@ -49,6 +49,7 @@
           try {
             const response = await this.$axios.post('/register/', this.form);
             if (response.status === 200) {
+              localStorage.setItem('username', this.form.username);
               this.$router.push({ name: 'FinancialDashboard' });
             }
           } catch (error) {

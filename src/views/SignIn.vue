@@ -10,8 +10,8 @@
             <el-card class="box-card">
               <h2>Sign In</h2>
               <el-form ref="form" :model="form" label-width="120px">
-                <el-form-item label="Email">
-                  <el-input v-model="form.email"></el-input>
+                <el-form-item label="Username">
+                  <el-input v-model="form.username"></el-input>
                 </el-form-item>
                 <el-form-item label="Password">
                   <el-input type="password" v-model="form.password"></el-input>
@@ -34,17 +34,18 @@
     data() {
       return {
         form: {
-          email: '',
+          username: '',
           password: '',
         },
       };
     },
     methods: {
       async onSubmit() {
-        if (this.form.email && this.form.password) {
+        if (this.form.username && this.form.password) {
           try {
-            const response = await this.$axios.post('/api/signin', this.form);
+            const response = await this.$axios.post('/login/', this.form);
             if (response.status === 200) {
+              localStorage.setItem('username', this.form.username);
               this.$router.push({ name: 'FinancialDashboard' });
             }
           } catch (error) {
