@@ -56,11 +56,10 @@
             }
           } catch (error) {
             if (error.response && error.response.data) {
-            this.errorMessage = error.response.data.detail; // Show server error message
-          } else {
-            this.errorMessage =
-              'An unexpected error occurred. Please try again.' // Show a generic error message
-          }
+              this.errorMessage = error.response.data.detail; // Show server error message
+            } else {
+              this.errorMessage = 'An unexpected error occurred. Please try again.' // Show a generic error message
+            }
           }
         } else {
           alert('Please fill in all fields.');
