@@ -13,4 +13,7 @@ export default {
 
 <style>
 /* Add any global styles here */
+body{
+  overflow: hidden;
+}
 </style>
