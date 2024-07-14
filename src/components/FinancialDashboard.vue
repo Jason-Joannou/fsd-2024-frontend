@@ -3,8 +3,10 @@
     <!-- Header -->
     <el-header class="header">
       <div class="navbar">
-        <span class="navbar-text">Welcome, {{ username }}!</span>
-        <div class="navbar-buttons">
+        <div class="navbar-left">
+          <span class="navbar-text">Welcome, {{ username }}!</span>
+        </div>
+        <div class="navbar-right">
           <el-button type="danger" @click="onSignOut" class="signout-button">Sign Out</el-button>
           <!-- Uncomment if needed -->
           <!-- <el-button type="primary" @click="goToSettings" class="settings-button">Settings</el-button> -->
@@ -48,6 +50,8 @@
 </template>
 
 <script>
+//import axios from 'axios';
+
 export default {
   name: 'FinancialDashboard',
   data() {
@@ -66,6 +70,7 @@ export default {
       localStorage.removeItem('username'); // Clear username from local storage
       this.$router.push({ name: 'SignIn' });
     },
+    // uncomment if needed
     // goToSettings() {
     //   this.$router.push({ name: 'Settings' });
     // },
@@ -78,18 +83,28 @@ export default {
   background-color: #324057; /* Change to suit your theme */
   color: white;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  height: 64px; /* ensure the header height matches the elements */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-left, .navbar-right {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-text {
   font-size: 18px;
 }
 
-.navbar-buttons {
-  display: flex;
-  align-items: center;
+.navbar-right {
+  justify-content: flex-end;
 }
 
 .signout-button,
