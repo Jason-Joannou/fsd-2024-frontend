@@ -8,8 +8,6 @@
         </div>
         <div class="navbar-right">
           <el-button type="danger" @click="onSignOut" class="signout-button">Sign Out</el-button>
-          <!-- Uncomment if needed -->
-          <!-- <el-button type="primary" @click="goToSettings" class="settings-button">Settings</el-button> -->
         </div>
       </div>
     </el-header>
@@ -17,28 +15,38 @@
     <el-container>
       <!-- Aside -->
       <el-aside width="200px" class="aside">
-        <el-menu default-active="1" class="el-menu-vertical-demo">
-          <el-menu-item index="1"><i class="el-icon-menu"></i>Dashboard</el-menu-item>
-          <el-menu-item index="2"><i class="el-icon-setting"></i>Settings</el-menu-item>
+        <el-menu :default-active="currentView" class="el-menu-vertical-demo" @select="handleMenuSelect">
+          <el-menu-item index="dashboard"><i class="el-icon-menu"></i>Dashboard</el-menu-item>
+          <el-menu-item index="machine-learning"><i class="el-icon-menu"></i>Machine Learning</el-menu-item>
+          <el-menu-item index="settings"><i class="el-icon-setting"></i>Settings</el-menu-item>
         </el-menu>
       </el-aside>
 
       <!-- Main content -->
       <el-main class="main-content">
-        <el-card class="box-card">
-          <div>Welcome to your financial dashboard.</div>
-        </el-card>
-
-        <el-card class="box-card" style="margin-top: 20px;">
-          <template v-slot:header>
-            <span>Chart</span>
-          </template>
-          <el-table :data="tableData" border style="width: 100%">
-            <el-table-column prop="date" label="Date" width="180"></el-table-column>
-            <el-table-column prop="name" label="Name" width="180"></el-table-column>
-            <el-table-column prop="address" label="Address"></el-table-column>
-          </el-table>
-        </el-card>
+        <div v-if="currentView === 'dashboard'">
+          <el-card class="box-card">
+            <div>Welcome to your financial dashboard.</div>
+          </el-card>
+          <el-card class="box-card" style="margin-top: 20px;">
+            <template v-slot:header>
+              <span>Chart</span>
+            </template>
+            <el-table :data="tableData" border style="width: 100%">
+              <el-table-column prop="date" label="Date" width="180"></el-table-column>
+              <el-table-column prop="name" label="Name" width="180"></el-table-column>
+              <el-table-column prop="address" label="Address"></el-table-column>
+            </el-table>
+          </el-card>
+        </div>
+        <div v-else-if="currentView === 'machine-learning'">
+          <el-card class="box-card">
+            <div>Machine Learning content goes here.</div>
+          </el-card>
+        </div>
+        <div v-else-if="currentView === 'settings'">
+          <SettingsPage />
+        </div>
       </el-main>
     </el-container>
 
@@ -50,13 +58,14 @@
 </template>
 
 <script>
-//import axios from 'axios';
+import SettingsPage from './SettingsPage.vue';
 
 export default {
   name: 'FinancialDashboard',
   data() {
     return {
       username: localStorage.getItem('username') || '', // Retrieve stored username
+      currentView: 'dashboard', // Default view
       tableData: [
         { date: '2016-05-02', name: 'Tom', address: 'New York No. 1 Lake Park' },
         { date: '2016-05-04', name: 'Tom', address: 'New York No. 1 Lake Park' },
@@ -70,10 +79,12 @@ export default {
       localStorage.removeItem('username'); // Clear username from local storage
       this.$router.push({ name: 'SignIn' });
     },
-    // uncomment if needed
-    // goToSettings() {
-    //   this.$router.push({ name: 'Settings' });
-    // },
+    handleMenuSelect(index) {
+      this.currentView = index;
+    }
+  },
+  components: {
+    SettingsPage,
   },
 };
 </script>
