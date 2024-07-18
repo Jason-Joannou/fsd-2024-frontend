@@ -10,9 +10,16 @@
       <el-form-item label="Username">
         <el-input v-model="form.username"></el-input>
       </el-form-item>
-      <el-form-item label="Email">
+
+      <el-form-item label="Email" style="margin-top: 16px;">
         <el-input v-model="form.email"></el-input>
       </el-form-item>
+
+      <!-- Buttons Section -->
+      <div class="button-group">
+        <el-button type="primary" @click="onUpdateUsername">Change Username</el-button>
+        <el-button type="primary" @click="onUpdateEmail">Change Email</el-button>
+      </div>
 
       <!-- Password Management -->
       <el-divider></el-divider>
@@ -26,11 +33,9 @@
       <el-form-item label="Confirm Password">
         <el-input type="password" v-model="form.confirmPassword"></el-input>
       </el-form-item>
-
-      <!-- Save Button -->
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">Save Settings</el-button>
-      </el-form-item>
+      <div class="password-button-group">
+        <el-button type="primary" @click="onChangePassword">Change Password</el-button>
+      </div>
     </el-form>
   </el-card>
 </template>
@@ -84,5 +89,21 @@ export default {
 <style scoped>
 .box-card {
   width: 100%;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 16px;
+}
+
+.password-button-group {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 16px;
+}
+
+.el-button {
+  margin-right: 8px;  /* Add some space between buttons */
 }
 </style>
