@@ -21,6 +21,7 @@
           </el-select>
           <el-input v-if="showWindowInput" v-model="windowInput" type="number" placeholder="Enter window size" class="window-input"></el-input>
           <el-button type="primary" @click="fetchGraphData" class="fetch-button">Fetch Data</el-button>
+          <el-button type="default" @click="clearSelections" class="clear-button">Clear Selection</el-button>
         </div>
         <div v-if="graphData" class="chart-display">
           <PlotlyChart :data="graphData.data" :layout="graphData.layout" />
@@ -143,6 +144,10 @@
         } catch (error) {
           console.error('API call error:', error);
         }
+      },
+      clearSelections() {
+        this.selectedCoins = [];
+        this.windowInput = null;
       }
     },
     watch: {
@@ -193,6 +198,10 @@
   
   .fetch-button {
     margin-top: 10px; /* Adds space between the last input element and the button */
+  }
+  
+  .clear-button {
+    margin-top: 10px; /* Adds space between the fetch button and the clear button */
   }
   
   .chart-display {
