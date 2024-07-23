@@ -27,7 +27,7 @@
       <!-- Main content -->
       <el-main class="main-content">
         <div v-if="currentView === 'welcome'">
-          <HomePage/>
+          <HomePage />
         </div>
         <div v-else-if="currentView === 'dashboard'">
           <el-card class="box-card">
@@ -60,6 +60,9 @@
             </div>
           </el-card>
         </div>
+        <div v-else-if="currentView === 'data-info'">
+          <DataInformation />
+        </div>
         <div v-else-if="currentView === 'machine-learning'">
           <el-card class="box-card">
             <div>Machine Learning content goes here.</div>
@@ -81,6 +84,7 @@
 <script>
 import SettingsPage from './SettingsPage.vue';
 import HomePage from './HomePage.vue';
+import DataInformation from './DataInformation.vue';
 
 export default {
   name: 'FinancialDashboard',
@@ -116,7 +120,8 @@ export default {
   },
   components: {
     SettingsPage,
-    HomePage
+    HomePage,
+    DataInformation
   },
 };
 </script>
