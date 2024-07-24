@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       username: localStorage.getItem('username') || '', // Retrieve stored username
-      currentView: 'dashboard', // Default view
+      currentView: 'welcome', // Default view
     };
   },
   methods: {
