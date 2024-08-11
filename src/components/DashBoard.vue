@@ -1,7 +1,6 @@
 <template>
   <div class="dashboard-container">
     <el-card class="box-card dashboard-header">
-      <div class="dashboard-title">Welcome to your financial dashboard.</div>
       <div class="dashboard-controls">
         <el-select v-model="selectedCoins" multiple placeholder="Select coins" class="coin-select">
           <el-option :label="'All'" :value="'all'"></el-option>

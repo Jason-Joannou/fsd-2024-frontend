@@ -13,25 +13,36 @@
     </el-card>
     <el-card class="box-card" style="margin-top: 20px;">
       <template v-slot:header>
-        <span>Your Favorite Charts</span>
+        <span>Top 5 Cryptocurrencies</span>
       </template>
-      <div v-for="chart in favoriteCharts" :key="chart.id" class="chart-item">
-        <p class="chart-title">{{ chart.title }}</p>
-        <div v-if="chart.type === 'table'">
-          <el-table :data="chart.data" border style="width: 100%">
-            <el-table-column prop="date" label="Date" width="180"></el-table-column>
+      <div class="crypto-container">
+        <el-card class="crypto-card" style="margin-right: 10px;">
+          <template v-slot:header>
+            <span>Price</span>
+          </template>
+          <el-table :data="cryptoData" border style="width: 100%">
             <el-table-column prop="name" label="Name" width="180"></el-table-column>
-            <el-table-column prop="address" label="Address"></el-table-column>
+            <el-table-column prop="price" label="Price (USD)" width="180"></el-table-column>
           </el-table>
-        </div>
-        <div v-else-if="chart.type === 'line'">
-          <!-- Line chart implementation -->
-          <p>Line chart will be displayed here.</p>
-        </div>
-        <div v-else-if="chart.type === 'bar'">
-          <!-- Bar chart implementation -->
-          <p>Bar chart will be displayed here.</p>
-        </div>
+        </el-card>
+        <el-card class="crypto-card" style="margin-right: 10px;">
+          <template v-slot:header>
+            <span>Volume</span>
+          </template>
+          <el-table :data="cryptoData" border style="width: 100%">
+            <el-table-column prop="name" label="Name" width="180"></el-table-column>
+            <el-table-column prop="volume" label="Volume (USD)" width="180"></el-table-column>
+          </el-table>
+        </el-card>
+        <el-card class="crypto-card">
+          <template v-slot:header>
+            <span>Market Cap</span>
+          </template>
+          <el-table :data="cryptoData" border style="width: 100%">
+            <el-table-column prop="name" label="Name" width="180"></el-table-column>
+            <el-table-column prop="market_cap" label="Market Cap (USD)" width="180"></el-table-column>
+          </el-table>
+        </el-card>
       </div>
     </el-card>
   </div>
@@ -46,7 +57,7 @@ export default {
     return {
       username: localStorage.getItem('username') || '', // Retrieve stored username
       cryptoNews: [], // Placeholder for crypto news
-      favoriteCharts: [] // Placeholder for user's favorite charts
+      cryptoData: [] // Placeholder for top 5 cryptocurrencies' data
     };
   },
   methods: {
@@ -58,22 +69,21 @@ export default {
         console.error('Error fetching crypto news:', error);
       }
     },
+    async fetchCryptoData() {
+      try {
+        const response = await axios.get('http://127.0.0.1:8080/get_top_5_crypto');
+        this.cryptoData = response.data;
+      } catch (error) {
+        console.error('Error fetching crypto data:', error);
+      }
+    },
     fetchFavoriteCharts() {
-      // Placeholder function to fetch user's favorite charts
-      this.favoriteCharts = [
-        { id: 1, title: 'My Favorite Table', type: 'table', data: [
-          { date: '2016-05-02', name: 'Tom', address: 'New York No. 1 Lake Park' },
-          { date: '2016-05-04', name: 'Tom', address: 'New York No. 1 Lake Park' },
-          { date: '2016-05-01', name: 'Tom', address: 'New York No. 1 Lake Park' },
-        ]},
-        { id: 2, title: 'My Favorite Line Chart', type: 'line', data: [] },
-        { id: 3, title: 'My Favorite Bar Chart', type: 'bar', data: [] }
-      ];
+      // This method is no longer used
     }
   },
   created() {
     this.fetchCryptoNews();
-    this.fetchFavoriteCharts();
+    this.fetchCryptoData();
   }
 };
 </script>
@@ -113,14 +123,14 @@ export default {
   color: #2980b9;
 }
 
-.chart-item {
-  margin-top: 20px;
+.crypto-container {
+  display: flex;
+  gap: 20px;
 }
 
-.chart-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #2c3e50;
-  margin-bottom: 10px;
+.crypto-card {
+  flex: 1;
+  min-width: 0;
 }
 </style>
+
