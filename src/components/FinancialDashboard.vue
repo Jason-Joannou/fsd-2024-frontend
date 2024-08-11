@@ -16,10 +16,10 @@
       <!-- Aside -->
       <el-aside width="200px" class="aside">
         <el-menu :default-active="currentView" class="el-menu-vertical-demo" @select="handleMenuSelect">
-          <el-menu-item index="welcome"><i class="el-icon-menu"></i>Home</el-menu-item>
-          <el-menu-item index="dashboard"><i class="el-icon-menu"></i>Dashboard</el-menu-item>
-          <el-menu-item index="data-info"><i class="el-icon-menu"></i>Data Information</el-menu-item>
-          <el-menu-item index="machine-learning"><i class="el-icon-menu"></i>Machine Learning</el-menu-item>
+          <el-menu-item index="welcome"><i class="el-icon-house"></i>Home</el-menu-item>
+          <el-menu-item index="dashboard"><i class="el-icon-s-data"></i>Dashboard</el-menu-item>
+          <el-menu-item index="data-info"><i class="el-icon-document"></i>Data Information</el-menu-item>
+          <el-menu-item index="machine-learning"><i class="el-icon-s-opportunity"></i>Machine Learning</el-menu-item>
           <el-menu-item index="settings"><i class="el-icon-setting"></i>Settings</el-menu-item>
         </el-menu>
       </el-aside>
@@ -88,12 +88,13 @@ export default {
 
 <style scoped>
 .header {
-  background-color: #324057; /* Change to suit your theme */
+  background-color: #34495e;
   color: white;
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  height: 64px; /* ensure the header height matches the elements */
+  padding: 0 20px;
+  height: 64px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navbar {
@@ -109,34 +110,71 @@ export default {
 
 .navbar-text {
   font-size: 18px;
+  font-weight: 500;
 }
 
 .navbar-right {
   justify-content: flex-end;
 }
 
-.signout-button,
-.settings-button {
+.signout-button {
   margin-left: 12px;
 }
 
 .aside {
-  background-color: #f0f2f5;
+  background-color: #2c3e50;
+  color: white;
+  padding-top: 20px;
+}
+
+.el-menu-vertical-demo {
+  background-color: transparent;
+}
+
+.el-menu-item {
+  color: white;
+  font-weight: 500;
+}
+
+.el-menu-item:hover, .el-menu-item.is-active {
+  background-color: #1abc9c !important;
+  color: white !important;
 }
 
 .main-content {
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #ecf0f1;
 }
 
 .footer {
   text-align: center;
   padding: 10px 0;
-  background-color: #324057;
+  background-color: #34495e;
   color: white;
+  border-top: 1px solid #eaeaea;
 }
 
 .box-card {
   margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.box-card:hover {
+  transform: translateY(-5px);
+}
+
+.el-button--danger {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  color: white;
+}
+
+.el-button--danger:hover {
+  background-color: #c0392b;
+  border-color: #c0392b;
 }
 </style>

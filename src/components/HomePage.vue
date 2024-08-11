@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="box-card">
-      <div>Welcome to My Financial Dashboard, {{ username }}!</div>
+      <div class="welcome-message">Welcome to My Financial Dashboard, {{ username }}!</div>
     </el-card>
     <el-card class="box-card" style="margin-top: 20px;">
       <template v-slot:header>
@@ -16,7 +16,7 @@
         <span>Your Favorite Charts</span>
       </template>
       <div v-for="chart in favoriteCharts" :key="chart.id" class="chart-item">
-        <p>{{ chart.title }}</p>
+        <p class="chart-title">{{ chart.title }}</p>
         <div v-if="chart.type === 'table'">
           <el-table :data="chart.data" border style="width: 100%">
             <el-table-column prop="date" label="Date" width="180"></el-table-column>
@@ -81,13 +81,46 @@ export default {
 <style scoped>
 .box-card {
   margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 20px;
+}
+
+.box-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.welcome-message {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #2c3e50;
 }
 
 .news-item {
   margin: 10px 0;
+  font-size: 1rem;
+}
+
+.news-item a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.news-item a:hover {
+  color: #2980b9;
 }
 
 .chart-item {
   margin-top: 20px;
+}
+
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 10px;
 }
 </style>
