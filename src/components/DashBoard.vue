@@ -1,12 +1,12 @@
 <template>
-<div class="dashboard-container">
-<el-card class="box-card dashboard-header">
-<div class="dashboard-controls">
-<el-select v-model="selectedCoins" multiple placeholder="Select coins" class="coin-select">
-<el-option :label="'All'" :value="'all'"></el-option>
-<el-option v-for="coin in coinOptions" :key="coin" :label="coin" :value="coin"></el-option>
-</el-select>
-<el-date-picker
+  <div class="dashboard-container">
+    <el-card class="box-card dashboard-header">
+      <div class="dashboard-controls">
+        <el-select v-model="selectedCoins" multiple placeholder="Select coins" class="coin-select">
+          <el-option :label="'All'" :value="'all'"></el-option>
+          <el-option v-for="coin in coinOptions" :key="coin" :label="coin" :value="coin"></el-option>
+        </el-select>
+        <el-date-picker
           v-model="selectedDate"
           type="daterange"
           range-separator="To"
@@ -14,19 +14,24 @@
           end-placeholder="End date"
           class="date-picker"
         />
-<el-button type="primary" @click="fetchAllGraphsData" class="fetch-button">Fetch Data</el-button>
-<el-button type="default" @click="clearSelections" class="clear-button">Clear Selection</el-button>
-</div>
-</el-card>
+        <el-button type="primary" @click="fetchAllGraphsData" class="fetch-button">Fetch Data</el-button>
+        <el-button type="default" @click="clearSelections" class="clear-button">Clear Selection</el-button>
+      </div>
+    </el-card>
 
     <!-- Display each graph in its own row -->
-<div v-for="(graph, index) in graphsData" :key="index" class="chart-row">
-<el-card class="box-card chart-card">
-<div class="chart-title">{{ graph.title }}</div>
-<PlotlyChart :data="graph.data.data" :layout="graph.data.layout" />
-</el-card>
-</div>
-</div>
+    <div v-for="(graph, index) in graphsData" :key="index" class="chart-row">
+      <el-card class="box-card chart-card">
+        <div class="chart-header">
+          <div class="chart-title">{{ graph.title }}</div>
+          <el-tooltip class="item" effect="dark" :content="getGraphHelpText(graph.title)" placement="top">
+            <i class="el-icon-question">?</i>
+          </el-tooltip>
+        </div>
+        <PlotlyChart :data="graph.data.data" :layout="graph.data.layout" />
+      </el-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -41,6 +46,13 @@ export default {
       selectedDate: null,
       coinOptions: [],
       graphsData: [],
+      helpText: {
+        'Daily Price Change': 'This graph shows the daily changes in the price of the selected coins over the specified period.',
+        'Volume Bar Graph': 'This graph displays the trading volume of the selected coins over time.',
+        'RSI Graph': 'This graph represents the Relative Strength Index (RSI), which helps identify overbought or oversold conditions in the market.',
+        'Candlestick Chart': 'This chart visualizes the price movements of the selected coins using candlesticks, showing open, high, low, and close prices.',
+        'Correlation Matrix': 'This matrix displays the correlation between different coins, helping to identify how their prices move in relation to each other.',
+      },
     };
   },
   created() {
@@ -111,6 +123,9 @@ export default {
       this.selectedDate = null;
       this.graphsData = [];
     },
+    getGraphHelpText(title) {
+      return this.helpText[title] || 'No description available';
+    },
   },
   components: {
     PlotlyChart,
@@ -129,12 +144,6 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.dashboard-title {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
 }
 
 .dashboard-controls {
@@ -163,15 +172,21 @@ export default {
   width: 100%;
 }
 
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .chart-title {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
 }
+
+.el-icon-question {
+  cursor: pointer;
+  font-size: 18px;
+  color: #409EFF;
+}
 </style>
-
-
-
-
-
-
