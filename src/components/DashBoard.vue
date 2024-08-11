@@ -1,12 +1,12 @@
 <template>
-  <div class="dashboard-container">
-    <el-card class="box-card dashboard-header">
-      <div class="dashboard-controls">
-        <el-select v-model="selectedCoins" multiple placeholder="Select coins" class="coin-select">
-          <el-option :label="'All'" :value="'all'"></el-option>
-          <el-option v-for="coin in coinOptions" :key="coin" :label="coin" :value="coin"></el-option>
-        </el-select>
-        <el-date-picker
+<div class="dashboard-container">
+<el-card class="box-card dashboard-header">
+<div class="dashboard-controls">
+<el-select v-model="selectedCoins" multiple placeholder="Select coins" class="coin-select">
+<el-option :label="'All'" :value="'all'"></el-option>
+<el-option v-for="coin in coinOptions" :key="coin" :label="coin" :value="coin"></el-option>
+</el-select>
+<el-date-picker
           v-model="selectedDate"
           type="daterange"
           range-separator="To"
@@ -14,19 +14,19 @@
           end-placeholder="End date"
           class="date-picker"
         />
-        <el-button type="primary" @click="fetchAllGraphsData" class="fetch-button">Fetch Data</el-button>
-        <el-button type="default" @click="clearSelections" class="clear-button">Clear Selection</el-button>
-      </div>
-    </el-card>
-    <el-row :gutter="30" class="chart-row">  <!-- Increased gutter space -->
-      <el-col :span="8" v-for="(graph, index) in graphsData" :key="index">
-        <el-card class="box-card chart-card">
-          <div class="chart-title">{{ graph.title }}</div>
-          <PlotlyChart :data="graph.data.data" :layout="graph.data.layout" />
-        </el-card>
-      </el-col>
-    </el-row>
-  </div>
+<el-button type="primary" @click="fetchAllGraphsData" class="fetch-button">Fetch Data</el-button>
+<el-button type="default" @click="clearSelections" class="clear-button">Clear Selection</el-button>
+</div>
+</el-card>
+
+    <!-- Display each graph in its own row -->
+<div v-for="(graph, index) in graphsData" :key="index" class="chart-row">
+<el-card class="box-card chart-card">
+<div class="chart-title">{{ graph.title }}</div>
+<PlotlyChart :data="graph.data.data" :layout="graph.data.layout" />
+</el-card>
+</div>
+</div>
 </template>
 
 <script>
@@ -66,6 +66,9 @@ export default {
         }
       }
     },
+    formatDate(date) {
+      return date ? date.toISOString().slice(0, 10) : null;
+    },
     async fetchAllGraphsData() {
       this.handleAllCoinsSelection();
 
@@ -83,6 +86,14 @@ export default {
         try {
           const params = new URLSearchParams();
           this.selectedCoins.forEach((coin) => params.append('coin_names', coin));
+
+          // Format the dates into YYYY-MM-DD and add to parameters
+          if (this.selectedDate && this.selectedDate.length === 2) {
+            const startDate = this.formatDate(this.selectedDate[0]);
+            const endDate = this.formatDate(this.selectedDate[1]);
+            params.append('start_date', startDate);
+            params.append('end_date', endDate);
+          }
 
           const response = await axios.get(`http://127.0.0.1:8080${graph.endpoint}?${params.toString()}`);
           if (response.data.transaction === 200) {
@@ -141,6 +152,7 @@ export default {
 
 .chart-row {
   margin-top: 20px;
+  width: 100%;
 }
 
 .chart-card {
@@ -148,7 +160,7 @@ export default {
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;  /* Adjusted for wider graphs */
+  width: 100%;
 }
 
 .chart-title {
