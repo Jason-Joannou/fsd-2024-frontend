@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="box-card">
-      <div class="welcome-message">Welcome to My Financial Dashboard, {{ username }}!</div>
+      <div class="welcome-message">Welcome to your Dashboard, {{ username }}!</div>
     </el-card>
     <el-card class="box-card" style="margin-top: 20px;">
       <template v-slot:header>
@@ -13,7 +13,7 @@
     </el-card>
     <el-card class="box-card" style="margin-top: 20px;">
       <template v-slot:header>
-        <span>Top 5 Cryptocurrencies</span>
+        <span>Latest Cryptocurrency Data</span>
       </template>
       <div class="crypto-container">
         <el-card class="crypto-card" style="margin-right: 10px;">
