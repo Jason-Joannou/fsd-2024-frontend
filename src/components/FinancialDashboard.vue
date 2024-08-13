@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container style="height: 100vh;">
     <!-- Header -->
     <el-header class="header">
       <div class="navbar">
@@ -89,6 +89,14 @@ export default {
 </script>
 
 <style scoped>
+/* Ensure root elements take full height */
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 .header {
   background-color: #34495e;
   color: white;
@@ -123,7 +131,7 @@ export default {
   margin-left: 12px;
 }
 
-.aside {
+.el-aside {
   background-color: #2c3e50;
   color: white;
   padding-top: 20px;
@@ -138,7 +146,8 @@ export default {
   font-weight: 500;
 }
 
-.el-menu-item:hover, .el-menu-item.is-active {
+.el-menu-item:hover,
+.el-menu-item.is-active {
   background-color: #1abc9c !important;
   color: white !important;
 }
@@ -146,6 +155,8 @@ export default {
 .main-content {
   padding: 20px;
   background-color: #ecf0f1;
+  overflow: auto; /* Allow the main content to be scrollable */
+  height: calc(100vh - 64px - 50px); /* Subtract height of header and footer from total height */
 }
 
 .footer {
@@ -154,6 +165,7 @@ export default {
   background-color: #34495e;
   color: white;
   border-top: 1px solid #eaeaea;
+  height: 50px;
 }
 
 .box-card {

@@ -13,7 +13,10 @@ export default {
 
 <style>
 /* Add any global styles here */
-body{
-  overflow-x: hidden
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 </style>
