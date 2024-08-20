@@ -9,8 +9,14 @@
             </el-select>
           </div>
         </template>
-        <div v-if="coinReport">
-          <PlotlyChart :data="coinReport.data" :layout="coinReport.layout" />
+        <div v-if="coinReportOther">
+          <PlotlyChart :data="coinReportOther.data" :layout="coinReportOther.layout" />
+        </div>
+        <div v-if="coinReportMarket">
+          <PlotlyChart :data="coinReportMarket.data" :layout="coinReportMarket.layout" />
+        </div>
+        <div v-if="coinReportVolume">
+          <PlotlyChart :data="coinReportVolume.data" :layout="coinReportVolume.layout" />
         </div>
         <div v-else>
           <el-skeleton rows="10"></el-skeleton>
@@ -44,7 +50,9 @@
       return {
         selectedCoin: null,
         coinOptions: [],
-        coinReport: null,
+        coinReportOther: null,
+        coinReportMarket: null,
+        coinReportVolume: null,
         coinProportion: null,
       };
     },
@@ -63,10 +71,18 @@
         try {
           const response = await fetch(`http://127.0.0.1:8080/coin_reporting?coin_name=${coinName}`);
           const data = await response.json();
-          this.coinReport = {
-            data: JSON.parse(data.data.graph).data,
-            layout: JSON.parse(data.data.graph).layout
+          this.coinReportOther = {
+            data: JSON.parse(data.data.graph_other).data,
+            layout: JSON.parse(data.data.graph_other).layout
           };
+          this.coinReportMarket = {
+            data: JSON.parse(data.data.graph_market).data,
+            layout: JSON.parse(data.data.graph_market).layout
+          }
+          this.coinReportVolume = {
+            data: JSON.parse(data.data.graph_volume).data,
+            layout: JSON.parse(data.data.graph_volume).layout
+          }
         } catch (error) {
           console.error('Error fetching coin report:', error);
         }
