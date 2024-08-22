@@ -28,25 +28,27 @@
           </template>
           <el-table :data="cryptoData" border style="width: 100%">
             <el-table-column prop="name" label="Name" width="180"></el-table-column>
-            <el-table-column prop="price" label="Price (USD)" width="180"></el-table-column>
+            <el-table-column prop="price" label="Price (USD)" width="180" :formatter="(row) => formatNumber(row.price)"></el-table-column>
           </el-table>
         </el-card>
+
         <el-card class="crypto-card" style="margin-right: 10px;">
           <template v-slot:header>
             <span>Volume</span>
           </template>
           <el-table :data="cryptoData" border style="width: 100%">
             <el-table-column prop="name" label="Name" width="180"></el-table-column>
-            <el-table-column prop="volume" label="Volume (USD)" width="180"></el-table-column>
+            <el-table-column prop="volume" label="Volume (USD)" width="180" :formatter="(row) => formatNumber(row.volume)"></el-table-column>
           </el-table>
         </el-card>
+
         <el-card class="crypto-card">
           <template v-slot:header>
             <span>Market Cap</span>
           </template>
           <el-table :data="cryptoData" border style="width: 100%">
             <el-table-column prop="name" label="Name" width="180"></el-table-column>
-            <el-table-column prop="market_cap" label="Market Cap (USD)" width="180"></el-table-column>
+            <el-table-column prop="market_cap" label="Market Cap (USD)" width="180" :formatter="(row) => formatNumber(row.market_cap)"></el-table-column>
           </el-table>
         </el-card>
       </div>
@@ -219,7 +221,6 @@ export default {
   min-width: 0;
 }
 
-/* New Layout Styles */
 .market-container {
   display: flex;
   justify-content: space-between;
