@@ -1,7 +1,9 @@
 <template>
   <div>
     <el-card class="box-card">
-      <div class="welcome-message">Welcome to {{ username }}'s Financial Dashboard! <br><br>
+      <div class="welcome-message">
+        <h1>Welcome {{ username }} to your Financial Dashboard!</h1>
+        <br><br>
         This platform allows you to track and analyze cryptocurrency data with ease. Select your preferred coins, choose a date range, and view detailed charts including:
       
         Stay informed and make data-driven decisions, all in one user-friendly interface.
