@@ -1,8 +1,9 @@
 <template>
   <div>
     <el-card class="box-card">
-      <div class="welcome-message">Welcome to your Dashboard, {{ username }}!</div>
+      <div class="welcome-message">Welcome to My Financial Dashboard, {{ username }}!</div>
     </el-card>
+
     <el-card class="box-card" style="margin-top: 20px;">
       <template v-slot:header>
         <span>Latest Crypto News</span>
@@ -11,9 +12,10 @@
         <a :href="news.link" target="_blank">{{ news.title }}</a>
       </div>
     </el-card>
+
     <el-card class="box-card" style="margin-top: 20px;">
       <template v-slot:header>
-        <span>Latest Cryptocurrency Data</span>
+        <span>Top 5 Cryptocurrencies</span>
       </template>
       <div class="crypto-container">
         <el-card class="crypto-card" style="margin-right: 10px;">
@@ -45,6 +47,51 @@
         </el-card>
       </div>
     </el-card>
+
+    <!-- New Layout -->
+    <div class="market-container">
+      <!-- Market Data on the left -->
+      <el-card class="market-card">
+        <template v-slot:header>
+          <span>Market Data</span>
+        </template>
+        <div>
+          <p class="market-cap">${{ formatNumber(marketData.market_cap) }}</p>
+          <p class="market-label">Market Cap</p>
+          <p class="market-cap-change">{{ marketData.cap_direction }}</p>
+
+          <p class="market-volume">${{ formatNumber(marketData.market_volume) }}</p>
+          <p class="market-label">24h Trading Volume</p>
+          <p class="market-volume-change">{{ marketData.volume_direction }}</p>
+        </div>
+      </el-card>
+
+      <!-- Trending Coins in the middle -->
+      <el-card class="market-card">
+        <template v-slot:header>
+          <span>🔥 Trending</span>
+        </template>
+        <div>
+          <el-table :data="trendingCoins" border style="width: 100%">
+            <el-table-column prop="name" label="Name" width="180"></el-table-column>
+            <el-table-column prop="percentage_change_7d" label="7d % Change" width="180"></el-table-column>
+          </el-table>
+        </div>
+      </el-card>
+
+      <!-- Largest Gainers on the right -->
+      <el-card class="market-card">
+        <template v-slot:header>
+          <span>Largest Gainers</span>
+        </template>
+        <div>
+          <el-table :data="topGainers" border style="width: 100%">
+            <el-table-column prop="name" label="Name" width="180"></el-table-column>
+            <el-table-column prop="price_change_percentage_24h" label="24h % Change" width="180"></el-table-column>
+          </el-table>
+        </div>
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -57,7 +104,10 @@ export default {
     return {
       username: localStorage.getItem('username') || '', // Retrieve stored username
       cryptoNews: [], // Placeholder for crypto news
-      cryptoData: [] // Placeholder for top 5 cryptocurrencies' data
+      cryptoData: [], // Placeholder for top 5 cryptocurrencies' data
+      marketData: {}, // Placeholder for market data
+      trendingCoins: [], // Placeholder for trending coins
+      topGainers: [] // Placeholder for top gainers
     };
   },
   methods: {
@@ -77,13 +127,40 @@ export default {
         console.error('Error fetching crypto data:', error);
       }
     },
-    fetchFavoriteCharts() {
-      // This method is no longer used
+    async fetchMarketData() {
+      try {
+        const response = await axios.get('http://127.0.0.1:8080/get_market_data');
+        this.marketData = response.data;
+      } catch (error) {
+        console.error('Error fetching market data:', error);
+      }
+    },
+    async fetchTrendingCoins() {
+      try {
+        const response = await axios.get('http://127.0.0.1:8080/get_trending_coins');
+        this.trendingCoins = response.data;
+      } catch (error) {
+        console.error('Error fetching trending coins:', error);
+      }
+    },
+    async fetchTopGainers() {
+      try {
+        const response = await axios.get('http://127.0.0.1:8080/get_top_gainers');
+        this.topGainers = response.data.top_gainers;
+      } catch (error) {
+        console.error('Error fetching top gainers:', error);
+      }
+    },
+    formatNumber(value) {
+      return new Intl.NumberFormat().format(value);
     }
   },
   created() {
     this.fetchCryptoNews();
     this.fetchCryptoData();
+    this.fetchMarketData();
+    this.fetchTrendingCoins();
+    this.fetchTopGainers();
   }
 };
 </script>
@@ -132,5 +209,37 @@ export default {
   flex: 1;
   min-width: 0;
 }
+
+/* New Layout Styles */
+.market-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.market-card {
+  width: 32%;
+}
+
+.market-cap, .market-volume {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.market-label {
+  font-size: 16px;
+  color: #666;
+}
+
+.market-cap-change, .market-volume-change {
+  font-size: 16px;
+  color: green;
+}
+
+.market-cap-change.down, .market-volume-change.down {
+  color: red;
+}
 </style>
+
 
