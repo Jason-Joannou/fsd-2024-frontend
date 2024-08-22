@@ -14,7 +14,7 @@
 
     <el-container>
       <!-- Aside -->
-      <el-aside width="200px" class="aside">
+      <el-aside width="220px" class="aside">
         <el-menu :default-active="currentView" class="el-menu-vertical-demo" @select="handleMenuSelect">
           <el-menu-item index="welcome"><i class="el-icon-house"></i>Home</el-menu-item>
           <el-menu-item index="dashboard"><i class="el-icon-s-data"></i>Dashboard</el-menu-item>
@@ -95,10 +95,11 @@ html, body, #app {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-family: 'Roboto', sans-serif;
 }
 
 .header {
-  background-color: #34495e;
+  background-color: #2c3e50;
   color: white;
   display: flex;
   align-items: center;
@@ -120,7 +121,7 @@ html, body, #app {
 
 .navbar-text {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .navbar-right {
@@ -129,12 +130,21 @@ html, body, #app {
 
 .signout-button {
   margin-left: 12px;
+  padding: 10px 20px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.signout-button:hover {
+  transform: translateY(-2px);
 }
 
 .el-aside {
-  background-color: #2c3e50;
+  background-color: #34495e;
   color: white;
   padding-top: 20px;
+  border-right: 1px solid #e0e0e0;
 }
 
 .el-menu-vertical-demo {
@@ -144,6 +154,7 @@ html, body, #app {
 .el-menu-item {
   color: white;
   font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .el-menu-item:hover,
@@ -153,19 +164,21 @@ html, body, #app {
 }
 
 .main-content {
-  padding: 20px;
+  padding: 30px;
   background-color: #ecf0f1;
   overflow: auto; /* Allow the main content to be scrollable */
   height: calc(100vh - 64px - 50px); /* Subtract height of header and footer from total height */
+  border-left: 1px solid #e0e0e0;
 }
 
 .footer {
   text-align: center;
   padding: 10px 0;
-  background-color: #34495e;
+  background-color: #2c3e50;
   color: white;
   border-top: 1px solid #eaeaea;
   height: 50px;
+  font-size: 14px;
 }
 
 .box-card {
@@ -174,7 +187,7 @@ html, body, #app {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: white;
   padding: 20px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .box-card:hover {

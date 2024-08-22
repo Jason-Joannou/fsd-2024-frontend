@@ -2,17 +2,17 @@
   <el-container class="full-screen">
     <el-main class="full-screen">
       <el-row type="flex" justify="center" align="middle" class="landing-row">
-        <el-col :span="12">
+        <el-col :span="10">
           <el-card class="box-card">
             <div class="card-content">
               <h1 class="welcome-message">Financial System Design</h1>
-              <p>Financial Dashboard</p>
-              <el-row type="flex" justify="center" align="middle" style="margin-top: 20px;">
+              <p class="subheading">Your Comprehensive Financial Dashboard</p>
+              <el-row type="flex" justify="center" align="middle" class="chart-container">
                 <plotly-chart :data="chartData" :layout="chartLayout" :options="chartOptions" class="chart"></plotly-chart>
               </el-row>
-              <el-row type="flex" justify="center" align="middle" style="margin-top: 20px;">
-                <el-button type="primary" @click="navigateTo('signin')">Sign In</el-button>
-                <el-button type="success" @click="navigateTo('signup')">Sign Up</el-button>
+              <el-row type="flex" justify="center" align="middle" class="button-row">
+                <el-button type="primary" @click="navigateTo('signin')" class="custom-button">Sign In</el-button>
+                <el-button type="success" @click="navigateTo('signup')" class="custom-button">Sign Up</el-button>
               </el-row>
             </div>
           </el-card>
@@ -28,7 +28,7 @@ import PlotlyChart from './PlotlyChart.vue';
 export default {
   name: 'LandingPage',
   components: {
-    PlotlyChart
+    PlotlyChart,
   },
   data() {
     return {
@@ -38,59 +38,94 @@ export default {
           y: [120, 132, 101, 134, 90, 230, 210],
           type: 'scatter',
           mode: 'lines+markers',
-          marker: { color: 'red' },
-        }
+          marker: { color: '#409EFF' },
+        },
       ],
       chartLayout: {
-        title: 'Crypto Graph'
+        title: 'Crypto Market Overview',
+        titlefont: {
+          size: 24,
+          color: '#333',
+        },
       },
-      chartOptions: {}
+      chartOptions: {},
     };
   },
   methods: {
     navigateTo(page) {
       this.$router.push({ path: `/${page}` });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
 .full-screen {
   height: 100vh;
+  background-color: #f0f2f5;
 }
+
 .landing-row {
   height: calc(100vh - 60px);
 }
+
 .box-card {
   margin-top: 20px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  transition: transform 0.3s;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .box-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
+
 .welcome-message {
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
-  margin-bottom: 1rem;
-  color: #333;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
 }
+
+.subheading {
+  text-align: center;
+  color: #888;
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
 .card-content {
   text-align: center;
+  padding: 20px;
 }
-.el-button {
-  margin: 10px 5px;
-  padding: 12px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
+
+.chart-container {
+  margin-top: 20px;
 }
+
 .chart {
   width: 100%;
   height: 400px;
+}
+
+.button-row {
   margin-top: 20px;
+}
+
+.custom-button {
+  margin: 0 10px;
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.custom-button:hover {
+  transform: translateY(-2px);
 }
 </style>

@@ -1,7 +1,17 @@
 <template>
   <div>
     <el-card class="box-card">
-      <div class="welcome-message">Welcome to My Financial Dashboard, {{ username }}!</div>
+      <div class="welcome-message">Welcome to {{ username }}'s Financial Dashboard! <br>
+        This platform allows you to track and analyze cryptocurrency data with ease. Select your preferred coins, choose a date range, and view detailed charts including:
+        <ul>
+          <li>Daily price changes</li>
+          <li>Trading volumes</li>
+          <li>RSI (Relative Strength Index)</li>
+          <li>Candlestick patterns</li>
+          <li>Correlation matrices</li>
+        </ul>
+        Stay informed and make data-driven decisions, all in one user-friendly interface.
+      </div>
     </el-card>
 
     <el-card class="box-card" style="margin-top: 20px;">
