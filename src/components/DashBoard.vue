@@ -92,7 +92,7 @@ export default {
         { title: 'Correlation Matrix', endpoint: '/correlation_analysis' },
       ];
 
-      this.graphsData = [];
+      const graphs = []; // Temporary array to hold graph data
 
       for (let graph of graphEndpoints) {
         try {
@@ -109,7 +109,7 @@ export default {
 
           const response = await axios.get(`http://127.0.0.1:8080${graph.endpoint}?${params.toString()}`);
           if (response.data.transaction === 200) {
-            this.graphsData.push({ title: graph.title, data: JSON.parse(response.data.data.graph) });
+            graphs.push({ title: graph.title, data: JSON.parse(response.data.data.graph) });
           } else {
             console.error(`Error fetching data for ${graph.title}:`, response.data.error);
           }
@@ -117,6 +117,9 @@ export default {
           console.error(`API call error for ${graph.title}:`, error);
         }
       }
+
+      // Use Vue.set to update graphsData so that Vue tracks changes
+      this.graphsData = graphs;
     },
     clearSelections() {
       this.selectedCoins = [];
