@@ -1,15 +1,9 @@
 <template>
   <div>
     <el-card class="box-card">
-      <div class="welcome-message">Welcome to {{ username }}'s Financial Dashboard! <br>
+      <div class="welcome-message">Welcome to {{ username }}'s Financial Dashboard! <br><br>
         This platform allows you to track and analyze cryptocurrency data with ease. Select your preferred coins, choose a date range, and view detailed charts including:
-        <ul>
-          <li>Daily price changes</li>
-          <li>Trading volumes</li>
-          <li>RSI (Relative Strength Index)</li>
-          <li>Candlestick patterns</li>
-          <li>Correlation matrices</li>
-        </ul>
+      
         Stay informed and make data-driven decisions, all in one user-friendly interface.
       </div>
     </el-card>
@@ -58,50 +52,55 @@
       </div>
     </el-card>
 
-    <!-- New Layout -->
-    <div class="market-container">
-      <!-- Market Data on the left -->
-      <el-card class="market-card">
-        <template v-slot:header>
-          <span>Market Data</span>
-        </template>
-        <div>
-          <p class="market-cap">${{ formatNumber(marketData.market_cap) }}</p>
-          <p class="market-label">Market Cap</p>
-          <p class="market-cap-change">{{ marketData.cap_direction }}</p>
+    <!-- Grouped Market Data, Trending, Largest Gainers -->
+    <el-card class="box-card" style="margin-top: 20px;">
+      <template v-slot:header>
+        <span>Market Insights</span>
+      </template>
+      <div class="market-container">
+        <!-- Market Data on the left -->
+        <el-card class="market-card">
+          <template v-slot:header>
+            <span>Market Data</span>
+          </template>
+          <div>
+            <p class="market-cap">${{ formatNumber(marketData.market_cap) }}</p>
+            <p class="market-label">Market Cap</p>
+            <p class="market-cap-change">{{ marketData.cap_direction }}</p>
 
-          <p class="market-volume">${{ formatNumber(marketData.market_volume) }}</p>
-          <p class="market-label">24h Trading Volume</p>
-          <p class="market-volume-change">{{ marketData.volume_direction }}</p>
-        </div>
-      </el-card>
+            <p class="market-volume">${{ formatNumber(marketData.market_volume) }}</p>
+            <p class="market-label">24h Trading Volume</p>
+            <p class="market-volume-change">{{ marketData.volume_direction }}</p>
+          </div>
+        </el-card>
 
-      <!-- Trending Coins in the middle -->
-      <el-card class="market-card">
-        <template v-slot:header>
-          <span>🔥 Trending</span>
-        </template>
-        <div>
-          <el-table :data="trendingCoins" border style="width: 100%">
-            <el-table-column prop="name" label="Name" width="180"></el-table-column>
-            <el-table-column prop="percentage_change_7d" label="7d % Change" width="180"></el-table-column>
-          </el-table>
-        </div>
-      </el-card>
+        <!-- Trending Coins in the middle -->
+        <el-card class="market-card">
+          <template v-slot:header>
+            <span>🔥 Trending</span>
+          </template>
+          <div>
+            <el-table :data="trendingCoins" border style="width: 100%">
+              <el-table-column prop="name" label="Name" width="180"></el-table-column>
+              <el-table-column prop="percentage_change_7d" label="7d % Change" width="180"></el-table-column>
+            </el-table>
+          </div>
+        </el-card>
 
-      <!-- Largest Gainers on the right -->
-      <el-card class="market-card">
-        <template v-slot:header>
-          <span>Largest Gainers</span>
-        </template>
-        <div>
-          <el-table :data="topGainers" border style="width: 100%">
-            <el-table-column prop="name" label="Name" width="180"></el-table-column>
-            <el-table-column prop="price_change_percentage_24h" label="24h % Change" width="180"></el-table-column>
-          </el-table>
-        </div>
-      </el-card>
-    </div>
+        <!-- Largest Gainers on the right -->
+        <el-card class="market-card">
+          <template v-slot:header>
+            <span>Largest Gainers</span>
+          </template>
+          <div>
+            <el-table :data="topGainers" border style="width: 100%">
+              <el-table-column prop="name" label="Name" width="180"></el-table-column>
+              <el-table-column prop="price_change_percentage_24h" label="24h % Change" width="180"></el-table-column>
+            </el-table>
+          </div>
+        </el-card>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -190,7 +189,7 @@ export default {
 }
 
 .welcome-message {
-  font-size: 1.5rem;
+  font-size: 1.0rem;
   font-weight: 500;
   color: #2c3e50;
 }
@@ -224,11 +223,12 @@ export default {
 .market-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  gap: 20px;
 }
 
 .market-card {
-  width: 32%;
+  flex: 1;
+  min-width: 0;
 }
 
 .market-cap, .market-volume {
@@ -251,5 +251,3 @@ export default {
   color: red;
 }
 </style>
-
-
