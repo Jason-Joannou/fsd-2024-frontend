@@ -96,6 +96,12 @@ export default {
 
       for (let graph of graphEndpoints) {
         try {
+          if (graph.title === 'Correlation Matrix' && this.selectedCoins.length < 2) {
+            // Skip calling the correlation endpoint if less than 2 coins are selected
+            console.log('Skipping Correlation Matrix as less than 2 coins are selected.');
+            continue;
+          }
+
           const params = new URLSearchParams();
           this.selectedCoins.forEach((coin) => params.append('coin_names', coin));
 
