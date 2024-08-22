@@ -50,7 +50,7 @@ export default {
     async onSubmit() {
       if (this.form.username && this.form.password) {
         try {
-          const response = await axios.post('http://127.0.0.1:8080/login/', this.form);
+          const response = await axios.post('http://fsdapi.uksouth.azurecontainer.io/login/', this.form);
           if (response.status === 200) {
             localStorage.setItem('username', this.form.username);
             this.$router.push({ name: 'FinancialDashboard' });

@@ -60,7 +60,7 @@ export default {
   methods: {
     async fetchCoinOptions() {
       try {
-        const response = await axios.get('http://127.0.0.1:8080/get_coin_names');
+        const response = await axios.get('http://fsdapi.uksouth.azurecontainer.io/get_coin_names');
         if (response.data.transaction_state === 200) {
           this.coinOptions = JSON.parse(response.data.data).map((coin) => coin.Name);
         } else {
@@ -78,7 +78,7 @@ export default {
           end_date: this.formatDate(this.selectedDate ? this.selectedDate[1] : null),
         };
 
-        const response = await axios.post('http://127.0.0.1:8080/run_regression_model', params);
+        const response = await axios.post('http://fsdapi.uksouth.azurecontainer.io/run_regression_model', params);
         if (response.data.transaction === 200) {
           this.modelData = JSON.parse(response.data.data.graph);
           console.log(this.modelData);

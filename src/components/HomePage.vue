@@ -126,7 +126,7 @@ export default {
   methods: {
     async fetchCryptoNews() {
       try {
-        const response = await axios.get('http://127.0.0.1:8080/get_crypto_news');
+        const response = await axios.get('http://fsdapi.uksouth.azurecontainer.io/get_crypto_news');
         this.cryptoNews = response.data;
       } catch (error) {
         console.error('Error fetching crypto news:', error);
@@ -134,7 +134,7 @@ export default {
     },
     async fetchCryptoData() {
       try {
-        const response = await axios.get('http://127.0.0.1:8080/get_top_5_crypto');
+        const response = await axios.get('http://fsdapi.uksouth.azurecontainer.io/get_top_5_crypto');
         this.cryptoData = response.data;
       } catch (error) {
         console.error('Error fetching crypto data:', error);
@@ -142,7 +142,7 @@ export default {
     },
     async fetchMarketData() {
       try {
-        const response = await axios.get('http://127.0.0.1:8080/get_market_data');
+        const response = await axios.get('http://fsdapi.uksouth.azurecontainer.io/get_market_data');
         this.marketData = response.data;
       } catch (error) {
         console.error('Error fetching market data:', error);
@@ -150,7 +150,7 @@ export default {
     },
     async fetchTrendingCoins() {
       try {
-        const response = await axios.get('http://127.0.0.1:8080/get_trending_coins');
+        const response = await axios.get('http://fsdapi.uksouth.azurecontainer.io/get_trending_coins');
         this.trendingCoins = response.data;
       } catch (error) {
         console.error('Error fetching trending coins:', error);
@@ -158,7 +158,7 @@ export default {
     },
     async fetchTopGainers() {
       try {
-        const response = await axios.get('http://127.0.0.1:8080/get_top_gainers');
+        const response = await axios.get('http://fsdapi.uksouth.azurecontainer.io/get_top_gainers');
         this.topGainers = response.data.top_gainers;
       } catch (error) {
         console.error('Error fetching top gainers:', error);

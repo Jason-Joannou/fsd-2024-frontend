@@ -120,7 +120,7 @@ export default {
   methods: {
     async fetchCoinNames() {
       try {
-        const response = await fetch('http://127.0.0.1:8080/get_coin_names');
+        const response = await fetch('http://fsdapi.uksouth.azurecontainer.io/get_coin_names');
         const data = await response.json();
         this.coinOptions = JSON.parse(data.data).map(coin => coin.Name);
       } catch (error) {
@@ -130,7 +130,7 @@ export default {
     async fetchCoinReport(coinName) {
       if (!coinName) return;
       try {
-        const response = await fetch(`http://127.0.0.1:8080/coin_reporting?coin_name=${coinName}`);
+        const response = await fetch(`http://fsdapi.uksouth.azurecontainer.io/coin_reporting?coin_name=${coinName}`);
         const data = await response.json();
         this.coinReportOther = {
           data: JSON.parse(data.data.graph_other).data,
@@ -150,7 +150,7 @@ export default {
     },
     async fetchCoinProportion() {
       try {
-        const response = await fetch('http://127.0.0.1:8080/coin_proportion');
+        const response = await fetch('http://fsdapi.uksouth.azurecontainer.io/coin_proportion');
         const data = await response.json();
         this.coinProportion = {
           pie_data: JSON.parse(data.data.pie_graph).data,

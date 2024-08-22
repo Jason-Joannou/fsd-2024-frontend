@@ -61,7 +61,7 @@ export default {
   methods: {
     async fetchCoinOptions() {
       try {
-        const response = await axios.get('http://127.0.0.1:8080/get_coin_names');
+        const response = await axios.get('http://fsdapi.uksouth.azurecontainer.io/get_coin_names');
         if (response.data.transaction_state === 200) {
           this.coinOptions = JSON.parse(response.data.data).map((coin) => coin.Name);
         } else {

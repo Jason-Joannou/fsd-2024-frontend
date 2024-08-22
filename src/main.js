@@ -8,7 +8,7 @@ import axios from 'axios';
 const app = createApp(App);
 
 // Configure the base URL for Axios
-axios.defaults.baseURL = 'http://127.0.0.1:8080';
+axios.defaults.baseURL = 'http://fsdapi.uksouth.azurecontainer.io/';
 
 // Make Axios available globally
 app.config.globalProperties.$axios = axios;
