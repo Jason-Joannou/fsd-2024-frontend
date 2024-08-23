@@ -113,7 +113,7 @@ export default {
             params.append('end_date', endDate);
           }
 
-          const response = await axios.get(`http://127.0.0.1:8080${graph.endpoint}?${params.toString()}`);
+          const response = await axios.get(`http://fsdapi.uksouth.azurecontainer.io/${graph.endpoint}?${params.toString()}`);
           if (response.data.transaction === 200) {
             graphs.push({ title: graph.title, data: JSON.parse(response.data.data.graph) });
           } else {
