@@ -1,0 +1,25 @@
+# Ignore node_modules directory
+node_modules
+
+# Ignore log files
+*.log
+
+# Ignore Dockerfile and .dockerignore file itself
+Dockerfile
+.dockerignore
+
+# Ignore local environment configuration files
+.env
+.env.local
+.env.*.local
+
+# Ignore build output
+dist
+
+# Ignore system files
+.DS_Store
+
+# Ignore IDE/editor configurations and project files
+.vscode
+.idea
+*.swp
